@@ -1,0 +1,29 @@
+h2{
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    color:cadetblue;
+}
+form{
+    text-align: center;
+    
+}
+input[type="text"]{
+    padding: 10px 20px;
+    border-radius: 5px ;
+}
+#weatherData{
+    margin-top: 50px;
+    text-align: center;        
+
+}
+button{
+    border: none;
+    background-color: limegreen;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px ;
+}
+button:hover{
+    background-color: green;
+}

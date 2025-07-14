@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my WeatherApp</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Weather Info</h2>
+    <div>
+        <form action="">
+            <label for="city">City:</label>
+            <input type="text" id="city" placeholder="enter city Name">
+            <button type="submit" id="Wbutton">Submit</button>
+        </form>
+    </div>
+<div id="weatherData"></div>
+</body>
+<script>
+    const api_key = 'ca02e581e79bb66ea2bace8a1499ff6f';
+    const city = document.getElementById("city");
+    const weatherData = document.getElementById("weatherData");
+    const Wbutton = document.getElementById("Wbutton");
+
+    Wbutton.addEventListener("click", async () => {
+        event.preventDefault();
+        const cityValue = city.value.trim();
+        if (cityValue === "") {
+            alert("Enter City Name");
+            return;
+        }
+
+        weatherData.innerHTML = "Loading..........";
+
+        try {
+            const response = await fetch(
+                `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&appid=${api_key}&units=metric`
+            );
+            if (!response.ok) {
+                throw new Error("Enter Valid City Name");
+            }
+
+            const data = await response.json();
+            const temp = data.main.temp;
+            const desc = data.weather[0].description;
+            const icon = data.weather[0].icon;
+            const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+
+            weatherData.innerHTML = `
+                <h2>${cityValue}</h2>
+                <p>🌡️ ${temp} °C</p>
+                <img src="${iconUrl}" alt="${desc}">
+                <p>🌥️ ${desc}</p>
+            `;
+        } catch (error) {
+            weatherData.innerHTML = `<p style="color: red;">${error.message}</p>`;
+        }
+    });
+</script>
+
+</html>
